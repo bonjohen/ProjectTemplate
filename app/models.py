@@ -131,15 +131,15 @@ class Page(db.Model):
     """Page model for content management"""
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    slug = db.Column(db.String(100), unique=True, nullable=False)
+    slug = db.Column(db.String(100), unique=True, nullable=False, index=True)
     content = db.Column(db.Text, nullable=False)
     summary = db.Column(db.String(200))
     featured_image = db.Column(db.String(120))
-    is_published = db.Column(db.Boolean, default=False)
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    is_published = db.Column(db.Boolean, default=False, index=True)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), index=True)
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
-    published_at = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    published_at = db.Column(db.DateTime, index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
 
     # Relationships
     tags = db.relationship('Tag', secondary='page_tags', backref='pages')
@@ -173,7 +173,7 @@ page_tags = db.Table('page_tags',
 class Tag(db.Model):
     """Tag model for content categorization"""
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True, nullable=False)
+    name = db.Column(db.String(50), unique=True, nullable=False, index=True)
 
     def __repr__(self):
         return f'<Tag {self.name}>'
@@ -181,15 +181,15 @@ class Tag(db.Model):
 class Media(db.Model):
     """Media model for file uploads"""
     id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(255), nullable=False)
+    filename = db.Column(db.String(255), nullable=False, index=True)
     original_filename = db.Column(db.String(255), nullable=False)
-    file_type = db.Column(db.String(50))  # e.g., 'image', 'document', 'video'
+    file_type = db.Column(db.String(50), index=True)  # e.g., 'image', 'document', 'video'
     file_size = db.Column(db.Integer)  # Size in bytes
-    file_extension = db.Column(db.String(10))  # e.g., 'jpg', 'pdf', 'mp4'
+    file_extension = db.Column(db.String(10), index=True)  # e.g., 'jpg', 'pdf', 'mp4'
     path = db.Column(db.String(255), nullable=False)
     alt_text = db.Column(db.String(255))  # For accessibility
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
 
     def __repr__(self):
         return f'<Media {self.filename}>'

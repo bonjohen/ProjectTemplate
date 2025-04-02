@@ -1,0 +1,8 @@
+-r requirements.txt
+
+# Production dependencies
+gunicorn==21.2.0
+psycopg2-binary==2.9.7  # PostgreSQL adapter
+redis==4.6.0  # For Redis cache
+supervisor==4.2.5  # Process control
+python-dotenv==1.0.0

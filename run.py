@@ -1,7 +1,10 @@
+import os
 from app import create_app, db
 from app.models import User, Role, Page, Tag, Media, PageVersion
 
-app = create_app()
+# Get configuration from environment variable or use default
+config_name = os.environ.get('FLASK_CONFIG', 'development')
+app = create_app(config_name)
 
 @app.shell_context_processor
 def make_shell_context():
@@ -17,4 +20,6 @@ def make_shell_context():
     }
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Use port from environment variable or default to 5010
+    port = int(os.environ.get('FLASK_RUN_PORT', 5010))
+    app.run(port=port)
