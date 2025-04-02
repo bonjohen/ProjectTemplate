@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Sitemap</h1>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Main Pages</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.index') }}">Home</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('content.pages') }}">Pages</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.api_docs') }}">API Documentation</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('auth.profile') }}">Profile</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Authentication</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                {% if not current_user.is_authenticated %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('auth.register') }}">Register</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('auth.reset_password_request') }}">Reset Password</a>
+                </li>
+                {% else %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    
+    {% if current_user.is_authenticated %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Content Management</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="{{ url_for('content.create_page') }}">Create Page</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('content.media_library') }}">Media Library</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('content.upload_media') }}">Upload Media</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url_for('content.tags') }}">Manage Tags</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if pages %}
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Content Pages</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                {% for page in pages %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('content.page', slug=page.slug) }}">{{ page.title }}</a>
+                    <small class="text-muted">Published: {{ page.published_at.strftime('%Y-%m-%d') }}</small>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -6,7 +6,14 @@
     <p class="lead">A robust web application template built with Flask.</p>
     <hr class="my-4">
     <p>This template includes user authentication, database integration, and a responsive frontend.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    <div class="d-flex gap-2">
+        <a class="btn btn-primary btn-lg" href="{{ url_for('content.pages') }}" role="button">Browse Content</a>
+        {% if current_user.is_authenticated %}
+        <a class="btn btn-outline-primary btn-lg" href="{{ url_for('content.create_page') }}" role="button">Create Content</a>
+        {% else %}
+        <a class="btn btn-outline-primary btn-lg" href="{{ url_for('auth.login') }}" role="button">Sign In</a>
+        {% endif %}
+    </div>
 </div>
 
 <div class="row mt-5">
@@ -15,24 +22,61 @@
             <div class="card-body">
                 <h5 class="card-title">User Authentication</h5>
                 <p class="card-text">Secure login/logout functionality with role-based access control.</p>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-sm btn-outline-primary">Register Now</a>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card mb-4">
             <div class="card-body">
-                <h5 class="card-title">Database Integration</h5>
-                <p class="card-text">SQLAlchemy ORM with SQLite for development and PostgreSQL for production.</p>
+                <h5 class="card-title">Content Management</h5>
+                <p class="card-text">Create and manage pages with rich text editing, media uploads, and version history.</p>
+                <a href="{{ url_for('content.pages') }}" class="btn btn-sm btn-outline-primary">View Pages</a>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card mb-4">
             <div class="card-body">
-                <h5 class="card-title">Responsive Frontend</h5>
-                <p class="card-text">Modern, mobile-friendly interface built with Bootstrap.</p>
+                <h5 class="card-title">API Access</h5>
+                <p class="card-text">RESTful API endpoints for programmatic access to users, pages, and media.</p>
+                <a href="{{ url_for('main.api_docs') }}" class="btn btn-sm btn-outline-primary">API Documentation</a>
             </div>
         </div>
     </div>
 </div>
+
+{% if recent_pages %}
+<div class="mt-5">
+    <h2 class="mb-4">Recent Content</h2>
+    <div class="row">
+        {% for page in recent_pages %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if page.featured_image %}
+                <img src="{{ url_for('static', filename='uploads/image/' + page.featured_image) }}" class="card-img-top" alt="{{ page.title }}">
+                {% else %}
+                <div class="card-img-top bg-light text-center py-5">
+                    <i class="fas fa-file-alt fa-3x text-secondary"></i>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ page.title }}</h5>
+                    <p class="card-text">{{ page.summary or page.content|striptags|truncate(100) }}</p>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">{{ page.published_at.strftime('%B %d, %Y') }}</small>
+                        <a href="{{ url_for('content.page', slug=page.slug) }}" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-3">
+        <a href="{{ url_for('content.pages') }}" class="btn btn-primary">View All Pages</a>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

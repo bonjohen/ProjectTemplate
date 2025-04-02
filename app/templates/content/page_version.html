@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1>Version: {{ version.title }}</h1>
+        <p class="text-muted">
+            Created on {{ version.created_at.strftime('%B %d, %Y at %H:%M') }} by {{ version.user.username }}
+        </p>
+    </div>
+    <div class="btn-group">
+        <a href="{{ url_for('content.page_versions', slug=page.slug) }}" class="btn btn-secondary">Back to History</a>
+        <form action="{{ url_for('content.restore_version', slug=page.slug, version_id=version.id) }}" method="POST">
+            <button type="submit" class="btn btn-success">Restore This Version</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Content</h5>
+    </div>
+    <div class="card-body">
+        <div class="page-content">
+            {{ version.content|safe }}
+        </div>
+    </div>
+</div>
+{% endblock %}

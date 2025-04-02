@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
+from flask_wtf.file import FileField, FileAllowed, FileRequired
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField, SelectMultipleField
+from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError, URL, Optional
 from app.models import User
 
 class LoginForm(FlaskForm):
@@ -70,3 +71,26 @@ class ProfileUpdateForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is already registered. Please use a different one.')
+
+class PageForm(FlaskForm):
+    """Form for creating and editing pages"""
+    title = StringField('Title', validators=[DataRequired(), Length(min=3, max=100)])
+    slug = StringField('Slug', validators=[DataRequired(), Length(min=3, max=100)])
+    summary = TextAreaField('Summary', validators=[Optional(), Length(max=200)])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    featured_image = FileField('Featured Image', validators=[Optional(), FileAllowed(['jpg', 'png', 'jpeg', 'gif'], 'Images only!')])
+    is_published = BooleanField('Publish')
+    tags = SelectMultipleField('Tags', coerce=int)
+    submit = SubmitField('Save')
+
+class MediaUploadForm(FlaskForm):
+    """Form for uploading media files"""
+    file = FileField('File', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'pdf', 'doc', 'docx'], 'Supported file types only!')])
+    file_type = SelectField('File Type', choices=[('image', 'Image'), ('document', 'Document')])
+    alt_text = StringField('Alt Text', validators=[Optional(), Length(max=255)])
+    submit = SubmitField('Upload')
+
+class TagForm(FlaskForm):
+    """Form for creating and editing tags"""
+    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
+    submit = SubmitField('Save')

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article>
+    <div class="mb-4">
+        {% if page.featured_image %}
+        <img src="{{ url_for('static', filename='uploads/image/' + page.featured_image) }}" class="img-fluid rounded mb-4" alt="{{ page.title }}">
+        {% endif %}
+        
+        <h1 class="mb-3">{{ page.title }}</h1>
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <small class="text-muted">
+                    By {{ page.author.username }} | 
+                    {% if page.published_at %}
+                    Published on {{ page.published_at.strftime('%B %d, %Y') }}
+                    {% else %}
+                    Draft
+                    {% endif %}
+                </small>
+            </div>
+            
+            {% if current_user.is_authenticated and (current_user.id == page.user_id or current_user.is_admin()) %}
+            <div class="btn-group">
+                <a href="{{ url_for('content.edit_page', slug=page.slug) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <a href="{{ url_for('content.page_versions', slug=page.slug) }}" class="btn btn-sm btn-outline-secondary">History</a>
+                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+            </div>
+            {% endif %}
+        </div>
+        
+        {% if page.tags %}
+        <div class="mb-4">
+            {% for tag in page.tags %}
+            <a href="{{ url_for('content.tag_pages', tag_name=tag.name) }}" class="badge bg-secondary text-decoration-none">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="page-content">
+        {{ page.content|safe }}
+    </div>
+</article>
+
+{% if current_user.is_authenticated and (current_user.id == page.user_id or current_user.is_admin()) %}
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this page? This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form action="{{ url_for('content.delete_page', slug=page.slug) }}" method="POST">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

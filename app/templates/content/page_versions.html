@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Version History: {{ page.title }}</h1>
+    <a href="{{ url_for('content.page', slug=page.slug) }}" class="btn btn-secondary">Back to Page</a>
+</div>
+
+{% if versions %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Versions</h5>
+    </div>
+    <div class="list-group list-group-flush">
+        {% for version in versions %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1">{{ version.title }}</h6>
+                    <small class="text-muted">
+                        {{ version.created_at.strftime('%B %d, %Y at %H:%M') }} by {{ version.user.username }}
+                    </small>
+                </div>
+                <div class="btn-group">
+                    <a href="{{ url_for('content.page_version', slug=page.slug, version_id=version.id) }}" class="btn btn-sm btn-outline-primary">View</a>
+                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#restoreModal{{ version.id }}">Restore</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Restore Modal -->
+        <div class="modal fade" id="restoreModal{{ version.id }}" tabindex="-1" aria-labelledby="restoreModalLabel{{ version.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="restoreModalLabel{{ version.id }}">Confirm Restore</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to restore this version? This will replace the current content with the content from this version.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form action="{{ url_for('content.restore_version', slug=page.slug, version_id=version.id) }}" method="POST">
+                            <input type="submit" class="btn btn-success" value="Restore">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    No version history found for this page.
+</div>
+{% endif %}
+{% endblock %}

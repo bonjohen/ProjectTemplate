@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Tags</h1>
+    <a href="{{ url_for('content.create_tag') }}" class="btn btn-primary">Create New Tag</a>
+</div>
+
+{% if tags %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">All Tags</h5>
+    </div>
+    <div class="list-group list-group-flush">
+        {% for tag in tags %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-0">{{ tag.name }}</h6>
+                    <small class="text-muted">
+                        {{ tag.pages|length }} page(s)
+                    </small>
+                </div>
+                <div class="btn-group">
+                    <a href="{{ url_for('content.tag_pages', tag_name=tag.name) }}" class="btn btn-sm btn-outline-primary">View Pages</a>
+                    {% if current_user.is_admin() %}
+                    <a href="{{ url_for('content.edit_tag', tag_name=tag.name) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ tag.id }}">Delete</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        {% if current_user.is_admin() %}
+        <!-- Delete Modal -->
+        <div class="modal fade" id="deleteModal{{ tag.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ tag.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel{{ tag.id }}">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the tag "{{ tag.name }}"? This will remove the tag from all pages.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form action="{{ url_for('content.delete_tag', tag_name=tag.name) }}" method="POST">
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    No tags found. <a href="{{ url_for('content.create_tag') }}">Create one now</a>!
+</div>
+{% endif %}
+{% endblock %}

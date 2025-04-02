@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">API Documentation</h1>
+    
+    <div class="alert alert-info">
+        <p>This page provides documentation for the Python Web App API. The API allows you to programmatically interact with users, pages, and tags.</p>
+    </div>
+    
+    <h2 class="mt-5">Authentication</h2>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Get Authentication Token</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Endpoint:</strong> <code>POST /api/token</code></p>
+            <p><strong>Authentication:</strong> Basic Authentication (username/password)</p>
+            <p><strong>Description:</strong> Generates a JWT token for API access</p>
+            <h6>Example Request:</h6>
+            <pre><code>curl -X POST -u "email@example.com:password" http://localhost:5000/api/token</code></pre>
+            <h6>Example Response:</h6>
+            <pre><code>{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}</code></pre>
+        </div>
+    </div>
+    
+    <h2 class="mt-5">Users</h2>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Get All Users</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Endpoint:</strong> <code>GET /api/users</code></p>
+            <p><strong>Authentication:</strong> Bearer Token (Admin only)</p>
+            <p><strong>Description:</strong> Returns a list of all users</p>
+            <h6>Example Request:</h6>
+            <pre><code>curl -H "Authorization: Bearer YOUR_TOKEN" http://localhost:5000/api/users</code></pre>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Get User</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Endpoint:</strong> <code>GET /api/users/{user_id}</code></p>
+            <p><strong>Authentication:</strong> Bearer Token (User or Admin)</p>
+            <p><strong>Description:</strong> Returns details for a specific user</p>
+            <h6>Example Request:</h6>
+            <pre><code>curl -H "Authorization: Bearer YOUR_TOKEN" http://localhost:5000/api/users/1</code></pre>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Create User</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Endpoint:</strong> <code>POST /api/users</code></p>
+            <p><strong>Authentication:</strong> None</p>
+            <p><strong>Description:</strong> Creates a new user</p>
+            <h6>Example Request:</h6>
+            <pre><code>curl -X POST -H "Content-Type: application/json" -d '{"username":"newuser","email":"user@example.com","password":"password123"}' http://localhost:5000/api/users</code></pre>
+        </div>
+    </div>
+    
+    <h2 class="mt-5">Pages</h2>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Get All Pages</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Endpoint:</strong> <code>GET /api/pages</code></p>
+            <p><strong>Authentication:</strong> None</p>
+            <p><strong>Description:</strong> Returns a list of all published pages</p>
+            <h6>Example Request:</h6>
+            <pre><code>curl http://localhost:5000/api/pages</code></pre>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Get Page</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Endpoint:</strong> <code>GET /api/pages/{page_id}</code></p>
+            <p><strong>Authentication:</strong> None (for published pages) / Bearer Token (for unpublished pages)</p>
+            <p><strong>Description:</strong> Returns details for a specific page</p>
+            <h6>Example Request:</h6>
+            <pre><code>curl http://localhost:5000/api/pages/1</code></pre>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Create Page</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Endpoint:</strong> <code>POST /api/pages</code></p>
+            <p><strong>Authentication:</strong> Bearer Token</p>
+            <p><strong>Description:</strong> Creates a new page</p>
+            <h6>Example Request:</h6>
+            <pre><code>curl -X POST -H "Authorization: Bearer YOUR_TOKEN" -H "Content-Type: application/json" -d '{"title":"New Page","content":"Page content","is_published":true}' http://localhost:5000/api/pages</code></pre>
+        </div>
+    </div>
+    
+    <h2 class="mt-5">Tags</h2>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Get All Tags</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Endpoint:</strong> <code>GET /api/tags</code></p>
+            <p><strong>Authentication:</strong> None</p>
+            <p><strong>Description:</strong> Returns a list of all tags</p>
+            <h6>Example Request:</h6>
+            <pre><code>curl http://localhost:5000/api/tags</code></pre>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Get Tag</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Endpoint:</strong> <code>GET /api/tags/{tag_id}</code></p>
+            <p><strong>Authentication:</strong> None</p>
+            <p><strong>Description:</strong> Returns details for a specific tag and its pages</p>
+            <h6>Example Request:</h6>
+            <pre><code>curl http://localhost:5000/api/tags/1</code></pre>
+        </div>
+    </div>
+    
+    <h2 class="mt-5">Error Responses</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <p>All API errors follow a consistent format:</p>
+            <pre><code>{
+  "error": "Error type",
+  "message": "Detailed error message"
+}</code></pre>
+            <p><strong>Common Error Codes:</strong></p>
+            <ul>
+                <li><code>400</code> - Bad Request</li>
+                <li><code>401</code> - Unauthorized</li>
+                <li><code>403</code> - Forbidden</li>
+                <li><code>404</code> - Not Found</li>
+                <li><code>405</code> - Method Not Allowed</li>
+                <li><code>500</code> - Internal Server Error</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

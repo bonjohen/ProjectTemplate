@@ -14,3 +14,12 @@ Flask-Mail==0.9.1
 email-validator==2.0.0.post2
 PyJWT==2.8.0
 pytest==7.4.2
+Werkzeug==2.3.7
+Flask-Migrate==4.0.5
+Pillow==10.0.0
+
+# Development and testing
+flake8==6.1.0
+mypy==1.5.1
+bandit==1.7.5
+pytest-cov==4.1.0

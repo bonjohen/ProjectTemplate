@@ -24,3 +24,12 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER', 'noreply@example.com')
     ADMINS = ['admin@example.com']
+
+    # File upload settings
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB limit
+    UPLOAD_EXTENSIONS = ['.jpg', '.png', '.gif', '.jpeg', '.pdf', '.doc', '.docx']
+
+    # Security settings
+    REMEMBER_COOKIE_DURATION = 2592000  # 30 days in seconds
+    REMEMBER_COOKIE_SECURE = False  # Set to True in production
+    REMEMBER_COOKIE_HTTPONLY = True
