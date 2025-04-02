@@ -47,6 +47,10 @@ class Config:
     SERVER_NAME = os.environ.get('SERVER_NAME')
     PREFERRED_URL_SCHEME = 'http'
 
+    # Port settings
+    DEFAULT_PORT = int(os.environ.get('FLASK_RUN_PORT', 5000))
+    USE_DYNAMIC_PORT = os.environ.get('USE_DYNAMIC_PORT', 'False').lower() in ('true', 'yes', '1', 't')
+
     @classmethod
     def init_app(cls, app):
         """Initialize application with this configuration"""
@@ -63,6 +67,9 @@ class DevelopmentConfig(Config):
     # Development server
     SERVER_NAME = None  # Allow any server name
 
+    # Enable dynamic port by default in development
+    USE_DYNAMIC_PORT = True
+
 class TestingConfig(Config):
     """Testing configuration settings"""
     DEBUG = False
@@ -75,7 +82,7 @@ class TestingConfig(Config):
     WTF_CSRF_ENABLED = False
 
     # Testing server
-    SERVER_NAME = 'localhost:5010'
+    SERVER_NAME = 'localhost:5000'
 
 class ProductionConfig(Config):
     """Production configuration settings"""

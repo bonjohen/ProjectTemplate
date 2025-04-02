@@ -33,6 +33,7 @@ class User(db.Model, UserMixin):
     email_verified = db.Column(db.Boolean, default=False)
     last_login = db.Column(db.DateTime)
     role = db.Column(db.String(20), default='user')  # 'admin', 'user', 'guest' - for backward compatibility
+    preferences = db.Column(db.JSON, default=lambda: {'theme': 'light', 'notifications': True})
 
     # Relationships
     roles = db.relationship('Role', secondary=user_roles, lazy='subquery',
@@ -140,6 +141,8 @@ class Page(db.Model):
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
     published_at = db.Column(db.DateTime, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
+    view_count = db.Column(db.Integer, default=0)
+    meta_description = db.Column(db.String(160))
 
     # Relationships
     tags = db.relationship('Tag', secondary='page_tags', backref='pages')

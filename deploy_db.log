@@ -1,0 +1,49 @@
+2025-04-02 16:26:36,311 - INFO - Starting full installation...
+2025-04-02 16:26:36,312 - INFO - Running command: flask db migrate
+2025-04-02 16:26:38,038 - INFO - Command output: Generating C:\Users\boen3\Documents\augment-projects\ProjectTemplate\migrations\versions\1068c2b96111_.py ...  done
+
+2025-04-02 16:26:38,038 - INFO - Migration created
+2025-04-02 16:26:38,038 - INFO - Running command: flask db upgrade
+2025-04-02 16:26:39,829 - INFO - Command output: 
+2025-04-02 16:26:39,829 - INFO - Migration applied
+2025-04-02 16:26:39,829 - INFO - Running command: flask init-db
+2025-04-02 16:26:41,211 - INFO - Command output: 2025-04-02 16:26:41,072 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-04-02 16:26:41,073 INFO sqlalchemy.engine.Engine INSERT INTO tag (name) VALUES (?) RETURNING id
+2025-04-02 16:26:41,073 INFO sqlalchemy.engine.Engine [generated in 0.00006s (insertmanyvalues) 1/4 (ordered; batch not supported)] ('General',)
+2025-04-02 16:26:41,079 INFO sqlalchemy.engine.Engine INSERT INTO tag (name) VALUES (?) RETURNING id
+2025-04-02 16:26:41,079 INFO sqlalchemy.engine.Engine [insertmanyvalues 2/4 (ordered; batch not supported)] ('Tutorial',)
+2025-04-02 16:26:41,079 INFO sqlalchemy.engine.Engine INSERT INTO tag (name) VALUES (?) RETURNING id
+2025-04-02 16:26:41,079 INFO sqlalchemy.engine.Engine [insertmanyvalues 3/4 (ordered; batch not supported)] ('News',)
+2025-04-02 16:26:41,079 INFO sqlalchemy.engine.Engine INSERT INTO tag (name) VALUES (?) RETURNING id
+2025-04-02 16:26:41,079 INFO sqlalchemy.engine.Engine [insertmanyvalues 4/4 (ordered; batch not supported)] ('Documentation',)
+2025-04-02 16:26:41,080 INFO sqlalchemy.engine.Engine INSERT INTO role (name, description) VALUES (?, ?) RETURNING id
+2025-04-02 16:26:41,080 INFO sqlalchemy.engine.Engine [generated in 0.00005s (insertmanyvalues) 1/3 (ordered; batch not supported)] ('admin', 'Administrator')
+2025-04-02 16:26:41,080 INFO sqlalchemy.engine.Engine INSERT INTO role (name, description) VALUES (?, ?) RETURNING id
+2025-04-02 16:26:41,080 INFO sqlalchemy.engine.Engine [insertmanyvalues 2/3 (ordered; batch not supported)] ('user', 'Regular user')
+2025-04-02 16:26:41,080 INFO sqlalchemy.engine.Engine INSERT INTO role (name, description) VALUES (?, ?) RETURNING id
+2025-04-02 16:26:41,080 INFO sqlalchemy.engine.Engine [insertmanyvalues 3/3 (ordered; batch not supported)] ('guest', 'Guest user')
+2025-04-02 16:26:41,081 INFO sqlalchemy.engine.Engine INSERT INTO user (username, email, password_hash, first_name, last_name, bio, profile_image, created_at, updated_at, is_active, email_verified, last_login, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-04-02 16:26:41,081 INFO sqlalchemy.engine.Engine [generated in 0.00014s] ('admin', 'admin@example.com', 'scrypt:32768:8:1$emMMzHydScAE8Cyk$9a7eb6bd2d9db4b9de12f64160f15dd7132b1289d48bebfc5b9bfb84165b3da43de67ec43a398ec9b3f78f0a2130e7207e9d237fcf912d64a5f19d249b7bc44f', None, None, None, 'default.jpg', '2025-04-02 23:26:40.996427', '2025-04-02 23:26:41.081224', 1, 1, None, 'admin')
+2025-04-02 16:26:41,081 INFO sqlalchemy.engine.Engine COMMIT
+Database initialized with default data.
+
+2025-04-02 16:26:41,212 - INFO - Database initialized with seed data
+2025-04-02 16:26:42,916 - INFO - Created or retrieved 'pages' collection
+2025-04-02 16:26:42,967 - INFO - Created or retrieved 'users' collection
+2025-04-02 16:26:42,967 - INFO - ChromaDB initialized successfully
+2025-04-02 16:26:42,967 - INFO - Full installation completed successfully
+2025-04-02 16:26:42,967 - INFO - Full installation completed successfully
+2025-04-02 16:38:47,233 - INFO - Starting upgrade installation...
+2025-04-02 16:38:47,236 - INFO - ChromaDB backed up to backups\20250402_163847\chroma_db
+2025-04-02 16:38:47,243 - INFO - Migrations backed up to backups\20250402_163847\migrations
+2025-04-02 16:38:47,243 - INFO - Backup created at backups\20250402_163847
+2025-04-02 16:38:47,243 - INFO - Running command: flask db migrate
+2025-04-02 16:38:48,713 - INFO - Command output: Generating C:\Users\boen3\Documents\augment-projects\ProjectTemplate\migrations\versions\a1aeea43bee8_.py ...  done
+
+2025-04-02 16:38:48,713 - INFO - Migration created
+2025-04-02 16:38:48,713 - INFO - Running command: flask db upgrade
+2025-04-02 16:38:50,163 - INFO - Command output: 
+2025-04-02 16:38:50,163 - INFO - Migration applied
+2025-04-02 16:38:51,147 - INFO - ChromaDB upgraded successfully
+2025-04-02 16:38:51,147 - INFO - Upgrade installation completed successfully
+2025-04-02 16:38:51,147 - INFO - Upgrade installation completed successfully

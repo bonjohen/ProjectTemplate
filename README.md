@@ -94,9 +94,10 @@ PythonWeb/
    ```
 6. Run the application:
    ```
-   flask run --port=5010
+   python run.py
    ```
-7. Open your browser and navigate to http://localhost:5010
+   The application will use port 5010 by default, or automatically find an available port if `USE_DYNAMIC_PORT=True` is set in your .env file.
+7. Open your browser and navigate to the URL shown in the console (typically http://localhost:5010)
 
 ## Development Guidelines
 
