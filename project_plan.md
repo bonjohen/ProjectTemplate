@@ -44,10 +44,10 @@ PythonWeb/
 - [x] Configure development environment
 
 ### Phase 2: Core Functionality
-- [ ] Design database models
-- [ ] Implement user authentication
-- [ ] Create basic templates
-- [ ] Set up static files
+- [x] Design database models
+- [x] Implement user authentication
+- [x] Create basic templates
+- [x] Set up static files
 
 ### Phase 3: Feature Development
 - [ ] Implement main application features
