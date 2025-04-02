@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Python Web App</h1>
+    <p class="lead">A robust web application template built with Flask.</p>
+    <hr class="my-4">
+    <p>This template includes user authentication, database integration, and a responsive frontend.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">User Authentication</h5>
+                <p class="card-text">Secure login/logout functionality with role-based access control.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Database Integration</h5>
+                <p class="card-text">SQLAlchemy ORM with SQLite for development and PostgreSQL for production.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Responsive Frontend</h5>
+                <p class="card-text">Modern, mobile-friendly interface built with Bootstrap.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

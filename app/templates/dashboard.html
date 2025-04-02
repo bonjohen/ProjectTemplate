@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Dashboard</h1>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Welcome, {{ current_user.username }}</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">This is your personal dashboard. Here you can manage your account and access application features.</p>
+                <p><strong>Email:</strong> {{ current_user.email }}</p>
+                <p><strong>Account created:</strong> {{ current_user.created_at.strftime('%Y-%m-%d') }}</p>
+                <p><strong>Role:</strong> {{ current_user.role }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">Edit Profile</a>
+                    <a href="#" class="list-group-item list-group-item-action">Change Password</a>
+                    {% if current_user.is_admin() %}
+                    <a href="#" class="list-group-item list-group-item-action">Admin Panel</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

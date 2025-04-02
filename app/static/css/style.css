@@ -1,0 +1,51 @@
+/* Main styles for the application */
+
+/* Body styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Custom jumbotron (Bootstrap 5 doesn't include it) */
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    border-radius: 0.3rem;
+}
+
+/* Card hover effect */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+/* Custom button styles */
+.btn-custom {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-custom:hover {
+    background-color: #5a6268;
+    color: white;
+}
+
+/* Footer styles */
+footer {
+    margin-top: auto;
+}

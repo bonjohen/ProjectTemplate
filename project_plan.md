@@ -39,9 +39,9 @@ PythonWeb/
 
 ### Phase 1: Project Setup
 - [x] Create virtual environment
-- [ ] Install dependencies
-- [ ] Set up basic Flask application
-- [ ] Configure development environment
+- [x] Install dependencies
+- [x] Set up basic Flask application
+- [x] Configure development environment
 
 ### Phase 2: Core Functionality
 - [ ] Design database models
