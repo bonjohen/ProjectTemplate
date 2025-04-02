@@ -61,7 +61,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_ECHO = True  # Log SQL queries
 
     # Development server
-    SERVER_NAME = 'localhost:5010'
+    SERVER_NAME = None  # Allow any server name
 
 class TestingConfig(Config):
     """Testing configuration settings"""
